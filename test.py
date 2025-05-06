@@ -7,7 +7,7 @@ import random
 import logging
 import sys
 
-from mouse_mover import move_mouse_to, perform_random_movement
+from mouse_mover import move_mouse_to, perform_random_movement, perform_navigation
 
 # Configure logging
 logging.basicConfig(
@@ -54,5 +54,6 @@ def test_random_movement():
 
 if __name__ == "__main__":
     # Run the tests
-    test_human_like_movement()
-    test_random_movement()
+    # test_human_like_movement()
+    # test_random_movement()
+    perform_navigation()

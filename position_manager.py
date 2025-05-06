@@ -6,7 +6,8 @@ import os
 import json
 import logging
 from typing import Dict, List, Any, Optional, Tuple
-from pynput.mouse import Listener, Button
+from pynput.keyboard import Listener as KeyboardListener, Key
+from pynput.mouse import Listener as MouseListener, Button
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -53,36 +54,46 @@ def load_positions() -> Optional[Dict[str, Any]]:
         logger.error(f"Error loading positions: {e}")
         return None
 
+
 def capture_position(element_name: str) -> Optional[Tuple[int, int]]:
     """
-    Capture a mouse position when the user clicks.
-    
+    Capture a mouse position only when Shift+Left click is detected.
+
     Args:
         element_name: Name of the element to capture position for
-        
+
     Returns:
         Tuple of (x, y) coordinates if successful, None otherwise
     """
     position = None
-    
+    shift_pressed = {'state': False}
+
+    def on_key_press(key):
+        if key == Key.shift:
+            shift_pressed['state'] = True
+
+    def on_key_release(key):
+        if key == Key.shift:
+            shift_pressed['state'] = False
+
     def on_click(x, y, button, pressed):
         nonlocal position
-        if button == Button.left and pressed:
+        if button == Button.left and pressed and shift_pressed['state']:
             position = (x, y)
             return False  # Stop listener
-        return None
 
-    print(f"Please click on the {element_name} element...")
-    
-    # Start mouse listener
-    with Listener(on_click=on_click) as listener:
-        listener.join()
-    
+    print(f"Please Shift+Click on the {element_name} element...")
+
+    # Start both keyboard and mouse listeners
+    with KeyboardListener(on_press=on_key_press, on_release=on_key_release) as kl, \
+            MouseListener(on_click=on_click) as ml:
+        ml.join()  # Wait for mouse click with Shift
+
     if position:
         logger.info(f"Captured position for {element_name}: {position}")
     else:
-        logger.error(f"Failed to capture position for {element_name}")
-    
+        logger.warning(f"Shift+Click not detected for {element_name}")
+
     return position
 
 def capture_all_positions(elements: List[Dict[str, Any]]) -> Dict[str, Any]:

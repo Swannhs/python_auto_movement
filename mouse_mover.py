@@ -138,7 +138,7 @@ def fiverr_auto_mouse_mover() -> NoReturn:
                     perform_navigation()
 
                 # Sleep between actions
-                sleep_duration = random.randint(20, 30)
+                sleep_duration = random.randint(2, 3)
                 logger.info(f"Sleeping for {sleep_duration} seconds")
                 time.sleep(sleep_duration)
 
