@@ -1,6 +1,12 @@
-import pyautogui
+"""
+Constants and configuration for the Python Auto Movement application.
+This module defines the mouse movement types and UI element coordinates.
+"""
+from typing import List, Dict, Any, Union
 
-mouse_movement_type = [
+# Available easing functions for mouse movement
+# These are the names of functions in the PyAutoGUI library
+mouse_movement_type: List[str] = [
     'easeInQuad',
     'easeOutQuad',
     'easeInOutQuad',
@@ -33,7 +39,11 @@ mouse_movement_type = [
     'easeInOutBounce',
 ]
 
-dashboard = {
+# UI element coordinate definitions
+# Each element has a width and height range for mouse targeting
+
+# Dashboard element
+dashboard: Dict[str, Union[str, Dict[str, Dict[str, int]]]] = {
     'name': 'dashboard',
     'width': {
         'start': 287,
@@ -45,7 +55,9 @@ dashboard = {
     }
 }
 
-my_business = {
+# My Business element with sub-menu items
+my_business: Dict[str, Union[str, Dict[str, Dict[str, int]], List[Dict[str, Dict[str, int]]]]] = {
+    'name': 'my_business',
     'width': {
         'start': 427,
         'end': 581
@@ -56,6 +68,7 @@ my_business = {
     },
     'sub_menu': [
         {
+            'name': 'sub_item_1',
             'width': {
                 'start': 440,
                 'end': 558
@@ -66,6 +79,7 @@ my_business = {
             },
         },
         {
+            'name': 'sub_item_2',
             'width': {
                 'start': 440,
                 'end': 558
@@ -76,6 +90,7 @@ my_business = {
             },
         },
         {
+            'name': 'sub_item_3',
             'width': {
                 'start': 440,
                 'end': 558
@@ -88,10 +103,11 @@ my_business = {
     ]
 }
 
-notifications = {
+# Notifications element
+notifications: Dict[str, Union[str, Dict[str, Dict[str, int]]]] = {
+    'name': 'notifications',
     'width': {
-        'start': 1530
-        ,
+        'start': 1530,
         'end': 1545
     },
     'height': {
@@ -100,7 +116,9 @@ notifications = {
     }
 }
 
-messages = {
+# Messages element
+messages: Dict[str, Union[str, Dict[str, Dict[str, int]]]] = {
+    'name': 'messages',
     'width': {
         'start': 1561,
         'end': 1608
@@ -111,7 +129,9 @@ messages = {
     }
 }
 
-profile = {
+# Profile element with sub-menu items
+profile: Dict[str, Union[str, Dict[str, Dict[str, int]], List[Dict[str, Dict[str, int]]]]] = {
+    'name': 'profile',
     'width': {
         'start': 1711,
         'end': 1734
@@ -122,6 +142,7 @@ profile = {
     },
     'sub_menu': [
         {
+            'name': 'profile_settings',
             'width': {
                 'start': 1415,
                 'end': 1632
@@ -134,4 +155,5 @@ profile = {
     ]
 }
 
-fiverr_press_links = [dashboard, messages, notifications, my_business, profile]
+# List of all clickable elements
+fiverr_press_links: List[Dict[str, Any]] = [dashboard, messages, notifications, my_business]
