@@ -29,6 +29,12 @@ def disclaimer() -> None:
         print("  - Press Ctrl + Enter to start the automation")
         print("  - Press Ctrl + Q to stop the current automation")
         print("  - Press Ctrl + Shift + Q to quit the application")
+
+        # Dynamic positions information
+        print("\nDynamic Click Positions:")
+        print("  - On first run, you will be prompted to click on each UI element")
+        print("  - These positions are saved for future use")
+        print("  - To reset positions, delete the 'positions.json' file")
         print("\n")
 
         logger.info("Disclaimer displayed successfully")

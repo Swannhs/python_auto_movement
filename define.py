@@ -2,7 +2,10 @@
 Constants and configuration for the Python Auto Movement application.
 This module defines the mouse movement types and UI element coordinates.
 """
+import os
 from typing import List, Dict, Any, Union
+
+from position_manager import get_positions
 
 # Available easing functions for mouse movement
 # These are the names of functions in the PyAutoGUI library
@@ -39,7 +42,8 @@ mouse_movement_type: List[str] = [
     'easeInOutBounce',
 ]
 
-# UI element coordinate definitions
+# Default UI element coordinate definitions
+# These are used as templates and for first-time setup
 # Each element has a width and height range for mouse targeting
 
 # Dashboard element
@@ -155,5 +159,9 @@ profile: Dict[str, Union[str, Dict[str, Dict[str, int]], List[Dict[str, Dict[str
     ]
 }
 
-# List of all clickable elements
-fiverr_press_links: List[Dict[str, Any]] = [dashboard, messages, notifications, my_business]
+# Default list of all clickable elements
+default_elements = [dashboard, messages, notifications, my_business]
+
+# Get dynamic positions from position_manager
+# This will either load saved positions or prompt the user to click on each element
+fiverr_press_links: List[Dict[str, Any]] = get_positions(default_elements)
